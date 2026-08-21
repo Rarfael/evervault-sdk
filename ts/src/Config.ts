@@ -1,0 +1,212 @@
+
+import { BaseFeature } from './feature/base/BaseFeature'
+import { TestFeature } from './feature/test/TestFeature'
+
+
+
+const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
+   test: TestFeature,
+
+}
+
+
+class Config {
+
+  makeFeature(this: any, fn: string) {
+    const fc = FEATURE_CLASS[fn]
+    const fi = new fc()
+    // TODO: errors etc
+    return fi
+  }
+
+  // False for a feature added at runtime via options.extend (station's
+  // adopt path) - the constructor uses this to skip makeFeature for names
+  // no generated class backs.
+  hasFeature(this: any, fn: string) {
+    return null != FEATURE_CLASS[fn]
+  }
+
+
+  main = {
+    name: 'Evervault',
+        slug: "evervault",
+    version: "0.0.1",
+    target: "ts",
+
+  }
+
+
+  feature = {
+     test:     {
+      "options": {
+        "active": false
+      }
+    },
+
+  }
+
+
+  options = {
+    base: "https://api.evervault.com",
+
+    auth: {
+      prefix: 'Basic',
+    },
+
+    headers: {
+      "content-type": "application/json"
+    },
+
+    entity: {
+      
+      card: {
+      },
+
+    }
+  }
+
+
+  entity = {
+    "card": {
+      "fields": [
+        {
+          "name": "expiry",
+          "req": true,
+          "type": "`$OBJECT`"
+        },
+        {
+          "name": "month",
+          "req": true,
+          "type": "`$STRING`"
+        },
+        {
+          "name": "number",
+          "req": true,
+          "type": "`$STRING`"
+        },
+        {
+          "name": "year",
+          "req": true,
+          "type": "`$STRING`"
+        }
+      ],
+      "name": "card",
+      "op": {
+        "create": {
+          "input": "data",
+          "name": "create",
+          "points": [
+            {
+              "args": {},
+              "kind": "http",
+              "method": "POST",
+              "orig": "/payments/cards",
+              "parts": [
+                "payments",
+                "cards"
+              ],
+              "select": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.expiry`"
+              }
+            }
+          ]
+        },
+        "load": {
+          "input": "data",
+          "name": "load",
+          "points": [
+            {
+              "args": {
+                "params": [
+                  {
+                    "kind": "param",
+                    "name": "id",
+                    "orig": "card_id",
+                    "reqd": true,
+                    "type": "`$STRING`"
+                  }
+                ]
+              },
+              "kind": "http",
+              "method": "GET",
+              "orig": "/payments/cards/{card_id}",
+              "parts": [
+                "payments",
+                "cards",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "card_id": "id"
+                }
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.expiry`"
+              }
+            }
+          ]
+        },
+        "remove": {
+          "input": "data",
+          "name": "remove",
+          "points": [
+            {
+              "args": {
+                "params": [
+                  {
+                    "kind": "param",
+                    "name": "id",
+                    "orig": "card_id",
+                    "reqd": true,
+                    "type": "`$STRING`"
+                  }
+                ]
+              },
+              "kind": "http",
+              "method": "DELETE",
+              "orig": "/payments/cards/{card_id}",
+              "parts": [
+                "payments",
+                "cards",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "card_id": "id"
+                }
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              }
+            }
+          ]
+        }
+      },
+      "relations": {
+        "ancestors": []
+      }
+    }
+  }
+}
+
+
+const config = new Config()
+
+export {
+  config
+}
+

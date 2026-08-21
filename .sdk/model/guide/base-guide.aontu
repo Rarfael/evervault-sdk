@@ -1,0 +1,21 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 2
+  metrics: count: path: 2
+  metrics: count: method: 3
+
+  entity: card: {
+    path: "/payments/cards": {
+      op: create: method: *POST
+      op: create: transform: res: *("`body.expiry`")|top
+    }
+    path: "/payments/cards/{card_id}": {
+      rename: param: "card_id": *"id"
+      op: load: method: *GET
+      op: load: transform: res: *("`body.expiry`")|top
+      op: remove: method: *DELETE
+    }
+  }
+
+}

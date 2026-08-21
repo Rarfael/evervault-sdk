@@ -1,0 +1,9 @@
+# BasicPaymentFlow
+
+main: kit: flow: BasicPaymentFlow:
+{
+  entity: "payment",
+  kind: "basic",
+  name: "BasicPaymentFlow",
+  "key$": "BasicPaymentFlow"
+}

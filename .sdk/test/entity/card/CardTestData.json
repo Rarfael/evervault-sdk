@@ -1,0 +1,37 @@
+{
+  "existing": {
+    "card": {
+      "CARD00": {
+        "expiry": {},
+        "month": "s29",
+        "number": "s2a",
+        "year": "s2b",
+        "id": "CARD00"
+      },
+      "CARD01": {
+        "expiry": {},
+        "month": "s51",
+        "number": "s52",
+        "year": "s53",
+        "id": "CARD01"
+      },
+      "CARD02": {
+        "expiry": {},
+        "month": "s79",
+        "number": "s7a",
+        "year": "s7b",
+        "id": "CARD02"
+      }
+    }
+  },
+  "new": {
+    "card": {
+      "card_ref01": {
+        "expiry": {},
+        "month": "sa1",
+        "number": "sa2",
+        "year": "sa3"
+      }
+    }
+  }
+}

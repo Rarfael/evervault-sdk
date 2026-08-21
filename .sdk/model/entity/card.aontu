@@ -1,0 +1,131 @@
+# Entity: card
+
+main: kit: entity: card: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "expiry"
+      req: true
+      type: "`$OBJECT`"
+    }
+    {
+      name: "month"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "number"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "year"
+      req: true
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "card"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/payments/cards"
+          parts: [
+            "payments"
+            "cards"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body.expiry`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "card_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/payments/cards/{card_id}"
+          parts: [
+            "payments"
+            "cards"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              card_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body.expiry`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "card_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "DELETE"
+          orig: "/payments/cards/{card_id}"
+          parts: [
+            "payments"
+            "cards"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              card_id: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

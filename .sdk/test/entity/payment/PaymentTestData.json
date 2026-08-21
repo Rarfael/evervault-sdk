@@ -1,0 +1,23 @@
+{
+  "existing": {
+    "payment": {
+      "PAYMENT00": {
+        "card_id": "CARD01",
+        "id": "PAYMENT00"
+      },
+      "PAYMENT01": {
+        "card_id": "CARD01",
+        "id": "PAYMENT01"
+      },
+      "PAYMENT02": {
+        "card_id": "CARD01",
+        "id": "PAYMENT02"
+      }
+    }
+  },
+  "new": {
+    "payment": {
+      "payment_ref01": {}
+    }
+  }
+}

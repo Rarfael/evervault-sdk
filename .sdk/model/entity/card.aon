@@ -13,16 +13,19 @@ main: kit: entity: card: {
     {
       name: "month"
       req: true
+      short: "The card expiry month, in MM format (e.g."
       type: "`$STRING`"
     }
     {
       name: "number"
       req: true
+      short: "The card number."
       type: "`$STRING`"
     }
     {
       name: "year"
       req: true
+      short: "The card expiry year, in YY format (e.g."
       type: "`$STRING`"
     }
   ]
@@ -81,45 +84,6 @@ main: kit: entity: card: {
           transform: {
             req: "`reqdata`"
             res: "`body.expiry`"
-          }
-        }
-      ]
-    }
-    remove: {
-      name: "remove"
-      points: [
-        {
-          args: {
-            params: [
-              {
-                kind: "param"
-                name: "id"
-                orig: "card_id"
-                reqd: true
-                type: "`$STRING`"
-              }
-            ]
-          }
-          method: "DELETE"
-          orig: "/payments/cards/{card_id}"
-          parts: [
-            "payments"
-            "cards"
-            "{id}"
-          ]
-          rename: {
-            param: {
-              card_id: "id"
-            }
-          }
-          select: {
-            exist: [
-              "id"
-            ]
-          }
-          transform: {
-            req: "`reqdata`"
-            res: "`body`"
           }
         }
       ]

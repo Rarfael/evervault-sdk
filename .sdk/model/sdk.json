@@ -51,18 +51,21 @@
               "active": true,
               "name": "month",
               "req": true,
+              "short": "The card expiry month, in MM format (e.g.",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "number",
               "req": true,
+              "short": "The card number.",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "year",
               "req": true,
+              "short": "The card expiry year, in YY format (e.g.",
               "type": "`$STRING`"
             }
           ],
@@ -132,7 +135,20 @@
                   }
                 }
               ]
-            },
+            }
+          },
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "payment": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [],
+          "name": "payment",
+          "op": {
             "remove": {
               "input": "data",
               "name": "remove",
@@ -144,7 +160,7 @@
                       {
                         "active": true,
                         "kind": "param",
-                        "name": "id",
+                        "name": "card_id",
                         "orig": "card_id",
                         "reqd": true,
                         "type": "`$STRING`"
@@ -157,16 +173,11 @@
                   "parts": [
                     "payments",
                     "cards",
-                    "{id}"
+                    "{card_id}"
                   ],
-                  "rename": {
-                    "param": {
-                      "card_id": "id"
-                    }
-                  },
                   "select": {
                     "exist": [
-                      "id"
+                      "card_id"
                     ]
                   },
                   "transform": {
@@ -178,7 +189,11 @@
             }
           },
           "relations": {
-            "ancestors": []
+            "ancestors": [
+              [
+                "card"
+              ]
+            ]
           }
         }
       },
@@ -301,22 +316,17 @@
                   }
                 }
               ]
-            },
-            {
-              "active": true,
-              "data": {},
-              "input": {
-                "ref": "card_ref01",
-                "suffix": "_rm0"
-              },
-              "match": {
-                "id": "card01"
-              },
-              "op": "remove",
-              "spec": [],
-              "valid": []
             }
           ]
+        },
+        "BasicPaymentFlow": {
+          "active": true,
+          "entity": "payment",
+          "key$": "BasicPaymentFlow",
+          "kind": "basic",
+          "name": "BasicPaymentFlow",
+          "param": {},
+          "step": []
         }
       },
       "info": {

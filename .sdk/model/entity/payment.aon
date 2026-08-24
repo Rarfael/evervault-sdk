@@ -1,0 +1,55 @@
+# Entity: payment
+
+main: kit: entity: payment: {
+
+  alias: field: {}
+
+  name: "payment"
+  op: {
+    remove: {
+      name: "remove"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "card_id"
+                orig: "card_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "DELETE"
+          orig: "/payments/cards/{card_id}"
+          parts: [
+            "payments"
+            "cards"
+            "{card_id}"
+          ]
+          select: {
+            exist: [
+              "card_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "card"
+      ]
+    ]
+  }
+
+
+
+}

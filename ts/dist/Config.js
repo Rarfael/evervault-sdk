@@ -41,6 +41,7 @@ class Config {
         },
         entity: {
             card: {},
+            payment: {},
         }
     };
     entity = {
@@ -54,16 +55,19 @@ class Config {
                 {
                     "name": "month",
                     "req": true,
+                    "short": "The card expiry month, in MM format (e.g.",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "number",
                     "req": true,
+                    "short": "The card number.",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "year",
                     "req": true,
+                    "short": "The card expiry year, in YY format (e.g.",
                     "type": "`$STRING`"
                 }
             ],
@@ -130,7 +134,16 @@ class Config {
                             }
                         }
                     ]
-                },
+                }
+            },
+            "relations": {
+                "ancestors": []
+            }
+        },
+        "payment": {
+            "fields": [],
+            "name": "payment",
+            "op": {
                 "remove": {
                     "input": "data",
                     "name": "remove",
@@ -140,7 +153,7 @@ class Config {
                                 "params": [
                                     {
                                         "kind": "param",
-                                        "name": "id",
+                                        "name": "card_id",
                                         "orig": "card_id",
                                         "reqd": true,
                                         "type": "`$STRING`"
@@ -153,16 +166,11 @@ class Config {
                             "parts": [
                                 "payments",
                                 "cards",
-                                "{id}"
+                                "{card_id}"
                             ],
-                            "rename": {
-                                "param": {
-                                    "card_id": "id"
-                                }
-                            },
                             "select": {
                                 "exist": [
-                                    "id"
+                                    "card_id"
                                 ]
                             },
                             "transform": {
@@ -174,7 +182,11 @@ class Config {
                 }
             },
             "relations": {
-                "ancestors": []
+                "ancestors": [
+                    [
+                        "card"
+                    ]
+                ]
             }
         }
     };

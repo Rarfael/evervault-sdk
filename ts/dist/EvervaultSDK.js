@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SDK = exports.EvervaultSDK = exports.EvervaultEntityBase = exports.BaseFeature = exports.config = exports.stdutil = void 0;
 const CardEntity_1 = require("./entity/CardEntity");
+const PaymentEntity_1 = require("./entity/PaymentEntity");
 const node_util_1 = require("node:util");
 const Config_1 = require("./Config");
 Object.defineProperty(exports, "config", { enumerable: true, get: function () { return Config_1.config; } });
@@ -231,6 +232,13 @@ class EvervaultSDK {
     Card(entopts) {
         const self = this;
         return new CardEntity_1.CardEntity(self, entopts);
+    }
+    // Entity access: `client.Payment().list()` / `client.Payment().load({ id })`.
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    Payment(entopts) {
+        const self = this;
+        return new PaymentEntity_1.PaymentEntity(self, entopts);
     }
     static test(testoptsarg, sdkoptsarg) {
         const struct = stdutil.struct;

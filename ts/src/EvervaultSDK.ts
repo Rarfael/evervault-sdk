@@ -1,6 +1,7 @@
 // Evervault Ts SDK
 
 import { CardEntity } from './entity/CardEntity'
+import { PaymentEntity } from './entity/PaymentEntity'
 
 export type * from './EvervaultTypes'
 
@@ -297,6 +298,15 @@ class EvervaultSDK {
   Card(entopts?: Record<string, any>) {
     const self = this
     return new CardEntity(self, entopts)
+  }
+
+
+  // Entity access: `client.Payment().list()` / `client.Payment().load({ id })`.
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Payment(entopts?: Record<string, any>) {
+    const self = this
+    return new PaymentEntity(self, entopts)
   }
 
 

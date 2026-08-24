@@ -59,10 +59,6 @@ const created = await client.Card().create({
   year: 'example_year',
 })
 
-// Remove
-await client.Card().remove({
-  id: 'example_id',
-})
 ```
 
 
@@ -240,6 +236,7 @@ new EvervaultSDK(options?: {
 | `prepare(fetchargs?)` | `Promise<FetchDef>` | Build an HTTP request definition without sending it. |
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
 | `Card(data?)` | `CardEntity` | Create a Card entity instance. |
+| `Payment(data?)` | `PaymentEntity` | Create a Payment entity instance. |
 | `tester(testopts?, sdkopts?)` | `EvervaultSDK` | Create a test-mode client instance. |
 
 #### Static methods
@@ -312,13 +309,22 @@ The `prepare()` method returns:
 | Field | Description |
 | --- | --- |
 | `expiry` |  |
-| `month` |  |
-| `number` |  |
-| `year` |  |
+| `month` | The card expiry month, in MM format (e.g. |
+| `number` | The card number. |
+| `year` | The card expiry year, in YY format (e.g. |
 
-Operations: create, load, remove.
+Operations: create, load.
 
 API path: `/payments/cards`
+
+#### Payment
+
+| Field | Description |
+| --- | --- |
+
+Operations: remove.
+
+API path: `/payments/cards/{card_id}`
 
 
 
@@ -335,16 +341,15 @@ Create an instance: `const card = client.Card()`
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
 | `load(match)` | Load a single entity by match criteria. |
-| `remove(match)` | Remove the matching entity. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
 | `expiry` | `Record<string, any>` |  |
-| `month` | `string` |  |
-| `number` | `string` |  |
-| `year` | `string` |  |
+| `month` | `string` | The card expiry month, in MM format (e.g. |
+| `number` | `string` | The card number. |
+| `year` | `string` | The card expiry year, in YY format (e.g. |
 
 #### Example: Load
 
@@ -362,6 +367,17 @@ const card = await client.Card().create({
   year: 'example_year',
 })
 ```
+
+
+### Payment
+
+Create an instance: `const payment = client.Payment()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `remove(match)` | Remove the matching entity. |
 
 
 ## Advanced

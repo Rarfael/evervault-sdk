@@ -25,15 +25,22 @@ declare class Config {
         };
         entity: {
             card: {};
+            payment: {};
         };
     };
     entity: {
         card: {
-            fields: {
+            fields: ({
                 name: string;
                 req: boolean;
                 type: string;
-            }[];
+                short?: undefined;
+            } | {
+                name: string;
+                req: boolean;
+                short: string;
+                type: string;
+            })[];
             name: string;
             op: {
                 create: {
@@ -83,6 +90,15 @@ declare class Config {
                         };
                     }[];
                 };
+            };
+            relations: {
+                ancestors: never[];
+            };
+        };
+        payment: {
+            fields: never[];
+            name: string;
+            op: {
                 remove: {
                     input: string;
                     name: string;
@@ -100,11 +116,6 @@ declare class Config {
                         method: string;
                         orig: string;
                         parts: string[];
-                        rename: {
-                            param: {
-                                card_id: string;
-                            };
-                        };
                         select: {
                             exist: string[];
                         };
@@ -116,7 +127,7 @@ declare class Config {
                 };
             };
             relations: {
-                ancestors: never[];
+                ancestors: string[][];
             };
         };
     };

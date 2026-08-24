@@ -61,6 +61,18 @@ Create a new `Card` entity instance.
 
 **Returns:** `CardEntity` instance.
 
+#### `Payment(data?: object)`
+
+Create a new `Payment` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `PaymentEntity` instance.
+
 #### `options()`
 
 Return a deep copy of the current SDK options.
@@ -118,9 +130,9 @@ const card = client.Card()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `expiry` | `Record<string, any>` | Yes |  |
-| `month` | `string` | Yes |  |
-| `number` | `string` | Yes |  |
-| `year` | `string` | Yes |  |
+| `month` | `string` | Yes | The card expiry month, in MM format (e.g. |
+| `number` | `string` | Yes | The card number. |
+| `year` | `string` | Yes | The card expiry year, in YY format (e.g. |
 
 ### Operations
 
@@ -145,12 +157,48 @@ Load a single entity matching the given criteria.
 const result = await client.Card().load({ id: 'card_id' })
 ```
 
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `CardEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `EvervaultSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## PaymentEntity
+
+```ts
+const payment = client.Payment()
+```
+
+### Operations
+
 #### `remove(match: object, ctrl?: object)`
 
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.Card().remove({ id: 'card_id' })
+const result = await client.Payment().remove({ card_id: 'card_id' })
 ```
 
 ### Common Methods
@@ -167,7 +215,7 @@ Get or set the entity match criteria. Works the same as `data()`.
 
 #### `make()`
 
-Create a new `CardEntity` instance with the same client and
+Create a new `PaymentEntity` instance with the same client and
 options.
 
 #### `client()`

@@ -23,7 +23,10 @@ export interface CardCreateData {
   year: string
 }
 
-export interface CardRemoveMatch {
-  id: string
+export interface Payment {
+}
+
+export interface PaymentRemoveMatch {
+  card_id: string
 }
 

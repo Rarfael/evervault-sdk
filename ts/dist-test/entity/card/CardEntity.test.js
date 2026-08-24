@@ -55,7 +55,7 @@ const utility_1 = require("../../utility");
     });
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.EVERVAULT_TEST_LIVE;
-        for (const op of ['create', 'load', 'remove']) {
+        for (const op of ['create', 'load']) {
             if ((0, utility_1.maybeSkipControl)(t, 'entityOp', 'card.' + op, live))
                 return;
         }

@@ -39,7 +39,7 @@ describe('CardEntity', async () => {
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.EVERVAULT_TEST_LIVE
-    for (const op of ['create', 'load', 'remove']) {
+    for (const op of ['create', 'load']) {
       if (maybeSkipControl(t, 'entityOp', 'card.' + op, live)) return
     }
 
@@ -64,7 +64,6 @@ describe('CardEntity', async () => {
 
     card_ref01_data = (await card_ref01_ent.create(card_ref01_data)).data()
     assert(null != card_ref01_data)
-
 
 
 

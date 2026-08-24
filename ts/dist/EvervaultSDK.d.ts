@@ -1,4 +1,5 @@
 import { CardEntity } from './entity/CardEntity';
+import { PaymentEntity } from './entity/PaymentEntity';
 export type * from './EvervaultTypes';
 import { inspect } from 'node:util';
 import type { Context, Feature } from './types';
@@ -45,6 +46,7 @@ declare class EvervaultSDK {
     }>;
     graphql(query: string, variables?: any, ctrl?: any): Promise<any>;
     Card(entopts?: Record<string, any>): CardEntity;
+    Payment(entopts?: Record<string, any>): PaymentEntity;
     static test(testoptsarg?: any, sdkoptsarg?: any): EvervaultSDK;
     tester(testopts?: any, sdkopts?: any): EvervaultSDK;
     toJSON(): {
